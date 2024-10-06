@@ -34,7 +34,7 @@ public class MarkovAlgorithm {
                     steps++;
                 } else {
                     if (output.contains(rule.getPattern())) {
-                        output = output.replaceAll(Pattern.quote(rule.getPattern()),
+                        output = output.replaceFirst(Pattern.quote(rule.getPattern()),
                                 rule.getReplacement());
                         ruleApplied = true;
                         steps++;
@@ -50,21 +50,5 @@ public class MarkovAlgorithm {
                 break;
         } while (ruleApplied);
         return new Result(steps, output);
-    }
-
-    public static void main(String[] args) {
-        MarkovAlgorithm algorithm = new MarkovAlgorithm("aabbccddeeff");
-        algorithm.addRule("cde -> a");
-        algorithm.addRule("*b -> bb*");
-        algorithm.addRule("*c -> cc*");
-        algorithm.addRule("*d -> dd*");
-        algorithm.addRule("*f -> ff*");
-        algorithm.addRule("*a -> a*");
-        algorithm.addRule("*e -> e*");
-        algorithm.addRule("* => ");
-        algorithm.addRule(" -> *");
-
-        int maxSteps = 100; // Ограничение на количество шагов
-        algorithm.execute(maxSteps);
     }
 }
